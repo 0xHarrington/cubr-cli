@@ -1,0 +1,40 @@
+{
+  "name": "cubr-cli",
+  "version": "1.0.0",
+  "description": "Command-line cube timer",
+  "main": "bin/index.js",
+  "bin": {
+    "cube": "./bin/index.js",
+    "yargs": "./bin/yargs.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MattAHarrington/cubr-cli.git"
+  },
+  "keywords": [
+    "Cube",
+    "Speedcube",
+    "Speedcubing",
+    "3x3",
+    "4x4",
+    "2x2",
+    "WCA",
+    "Command",
+    "Line",
+    "Node"
+  ],
+  "author": "Matt Harrington",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MattAHarrington/cubr-cli/issues"
+  },
+  "homepage": "https://github.com/MattAHarrington/cubr-cli#readme",
+  "dependencies": {
+    "boxen": "^4.2.0",
+    "chalk": "^4.1.0",
+    "yargs": "^15.3.1"
+  }
+}
