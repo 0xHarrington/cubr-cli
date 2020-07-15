@@ -1,42 +1,29 @@
 {
   "name": "cubr-cli",
   "version": "1.0.0",
-  "description": "Command-line cube timer",
-  "main": "bin/index.js",
-  "bin": {
-    "cube": "./bin/index.js",
-    "yargs": "./bin/yargs.js"
-  },
+  "description": "Command-Line Cube Timer",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MattAHarrington/cubr-cli.git"
   },
-  "keywords": [
-    "Cube",
-    "Speedcube",
-    "Speedcubing",
-    "3x3",
-    "4x4",
-    "2x2",
-    "WCA",
-    "Command",
-    "Line",
-    "Node"
-  ],
-  "author": "Matt Harrington",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/MattAHarrington/cubr-cli/issues"
   },
   "homepage": "https://github.com/MattAHarrington/cubr-cli#readme",
   "dependencies": {
+    "@babel/core": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/preset-react": "^7.10.4",
+    "@babel/register": "^7.10.5",
     "blessed": "^0.1.81",
-    "blessed-contrib": "^4.8.20",
-    "boxen": "^4.2.0",
-    "chalk": "^4.1.0",
-    "yargs": "^15.3.1"
+    "react": "^16.13.1",
+    "react-blessed": "^0.6.2"
   }
 }
