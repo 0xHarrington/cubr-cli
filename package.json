@@ -24,6 +24,8 @@
     "@babel/register": "^7.10.5",
     "blessed": "^0.1.81",
     "react": "^16.13.1",
-    "react-blessed": "^0.6.2"
+    "react-blessed": "0.6.1",
+    "react-devtools-core": "^3.0.0",
+    "ws": "^6.0.0"
   }
 }

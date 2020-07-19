@@ -1,47 +1,84 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, {Component} from 'react'
 import blessed from 'blessed'
 import { render } from 'react-blessed'
 
-const App = () => {
-  const [count, setCount] = useState(0)
-  const timer = useRef(null)
-  useEffect(() => {
-    timer.current = setTimeout(() => setCount(count + 1), 1000)
-    return () => clearTimeout(timer.current)
-  }, [count])
+/**
+ * Stylesheet
+ */
+const stylesheet = {
+  bordered: {
+    border: {
+      type: 'line'
+    },
+    style: {
+      border: {
+        fg: 'blue'
+      }
+    }
+  }
+};
 
-  let dateTime = new Date().toLocaleString('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: true
-  })
+/**
+ * Top level component.
+ */
+class Dashboard extends Component {
+  constructor(props) {
+    super(props);
 
-  return (
-    <box
-      top="center"
-      left="center"
-      width="50%"
-      height="50%"
-      border={{ type: 'line' }}
-      style={{
-        border: { fg: 'blue' }
-      }}
-    >
-      {`Today: ${dateTime}
-        Hey You!`}
-    </box>
-  )
+    this.state = {
+      times: [],
+      isTiming: false,
+      currentTime: 0
+    }
+  }
+
+  componentDidMount() {
+    this.addKeyPressListeners()
+  }
+
+  addKeyPressListeners() {
+    this.props.addKeypressListener('Spacebar', () => {
+      this.setState(prevState => {isTiming: !prevState.isTiming})
+    });
+  }
+
+  render() {
+    const {currentTime, isTiming} = this.state
+    return (
+      <Timer currentTime isTiming />
+    );
+  }
 }
 
+/**
+ * Timer Component
+ */
+const Timer = (props) => {
+  return (
+    <box label={"Timer"}
+        class={stylesheet.bordered}
+        top="30%"
+        left="center"
+        width="50%"
+        height="35%" >
+      {props.isTiming ? "hello" : "goodbye"}
+    </box>
+  );
+};
+
+/**
+ * Rendering the screen.
+ */
 const screen = blessed.screen({
   autoPadding: true,
   smartCSR: true,
-  title: 'react-blessed hello world'
-})
+  title: 'react-blessed dashboard'
+});
 
-screen.key(['escape', 'q', 'C-c'], () => process.exit(0))
+screen.key(['escape', 'q', 'C-c'], () => process.exit(0));
 
-const component = render(<App />, screen)
+render(
+  <Dashboard 
+    addKeypressListener={(key, fn) => screen.key(key, fn)}
+  />, screen
+);
