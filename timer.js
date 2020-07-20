@@ -26,26 +26,26 @@ class Dashboard extends Component {
     super(props);
 
     this.state = {
+      foo: "Testing",
       times: [],
       isTiming: false,
       currentTime: 0
     }
-  }
 
-  componentDidMount() {
-    this.addKeyPressListeners()
-  }
-
-  addKeyPressListeners() {
-    this.props.addKeypressListener('Spacebar', () => {
-      this.setState(prevState => {isTiming: !prevState.isTiming})
+    this.props.addKeypressListener('space', () => {
+      this.setState(prevState => { return { isTiming: !prevState.isTiming } })
     });
   }
 
+  componentDidMount() {
+  }
+
   render() {
-    const {currentTime, isTiming} = this.state
     return (
-      <Timer currentTime isTiming />
+      <Timer
+        currentTime={this.state.currentTime}
+        isTiming={this.state.isTiming}
+      />
     );
   }
 }
@@ -62,6 +62,8 @@ const Timer = (props) => {
         width="50%"
         height="35%" >
       {props.isTiming ? "hello" : "goodbye"}
+
+      {JSON.stringify(props)}
     </box>
   );
 };
@@ -78,7 +80,7 @@ const screen = blessed.screen({
 screen.key(['escape', 'q', 'C-c'], () => process.exit(0));
 
 render(
-  <Dashboard 
+  <Dashboard
     addKeypressListener={(key, fn) => screen.key(key, fn)}
   />, screen
 );
