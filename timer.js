@@ -31,10 +31,26 @@ class Dashboard extends Component {
       isTiming: false,
       currentTime: 0
     }
+    this.timer = 0;
 
-    this.props.addKeypressListener('space', () => {
-      this.setState(prevState => { return { isTiming: !prevState.isTiming } })
-    });
+    this.handleSpacebar = this.handleSpacebar.bind(this);
+    this.props.addKeypressListener('space', this.handleSpacebar);
+  }
+
+  handleSpacebar() {
+    // Stopping timer
+    if (this.state.isTiming) {
+      clearInterval(this.timer)
+      this.setState(prevState => { return { times: [...prevState.times, this.state.currentTime] }})
+    }
+    // Beginning timer
+    else {
+      this.state.currentTime = 0
+      this.timer = setInterval(() => {
+        this.setState(prevState => ({currentTime: parseFloat(prevState.currentTime + .01).toFixed(2)}))
+      }, 10)
+    }
+    this.setState(prevState => ({ isTiming: !prevState.isTiming }))
   }
 
   componentDidMount() {
@@ -45,6 +61,7 @@ class Dashboard extends Component {
       <Timer
         currentTime={this.state.currentTime}
         isTiming={this.state.isTiming}
+        times={this.state.times}
       />
     );
   }
