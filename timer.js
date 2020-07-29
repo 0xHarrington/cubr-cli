@@ -29,26 +29,39 @@ class Dashboard extends Component {
       foo: "Testing",
       times: [],
       isTiming: false,
+      totalElapsedSeconds: 0,
       currentTime: 0
     }
     this.timer = 0;
 
     this.handleSpacebar = this.handleSpacebar.bind(this);
     this.props.addKeypressListener('space', this.handleSpacebar);
+    this.tick = this.tick.bind(this);
+  }
+
+  tick() {
+    let totalElapsedSeconds = ((new Date().getTime() - this.state.currentTime) / 1000).toFixed(2);
+    this.setState({totalElapsedSeconds})
   }
 
   handleSpacebar() {
     // Stopping timer
     if (this.state.isTiming) {
       clearInterval(this.timer)
-      this.setState(prevState => { return { times: [...prevState.times, this.state.currentTime] }})
+      this.setState(prevState => {
+        return {
+          times: [
+            ...prevState.times,
+            prevState.totalElapsedSeconds
+          ],
+          currentTime: prevState.totalElapsedSeconds
+        }
+      })
     }
     // Beginning timer
     else {
-      this.state.currentTime = 0
-      this.timer = setInterval(() => {
-        this.setState(prevState => ({currentTime: parseFloat(prevState.currentTime + .01).toFixed(2)}))
-      }, 10)
+      this.setState({ currentTime: new Date().getTime() })
+      this.timer = setInterval(this.tick.bind(this), 10);
     }
     this.setState(prevState => ({ isTiming: !prevState.isTiming }))
   }
@@ -78,9 +91,9 @@ const Timer = (props) => {
         left="center"
         width="50%"
         height="35%" >
-      {props.isTiming ? "hello" : "goodbye"}
 
-      {JSON.stringify(props)}
+      {props.isTiming ? JSON.stringify(props) : props.currentTime}
+
     </box>
   );
 };
