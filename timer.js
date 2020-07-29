@@ -71,11 +71,17 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <Timer
-        currentTime={this.state.currentTime}
-        isTiming={this.state.isTiming}
-        times={this.state.times}
-      />
+      <element>
+        <Timer
+          currentTime={this.state.currentTime}
+          isTiming={this.state.isTiming}
+          times={this.state.times}
+        />
+        <TimeList
+          times={this.state.times}
+        />
+        <Scramble/>
+      </element>
     );
   }
 }
@@ -85,16 +91,47 @@ class Dashboard extends Component {
  */
 const Timer = (props) => {
   return (
-    <box label={"Timer"}
+      <bigtext label={"Timer"}
+          class={stylesheet.bordered}
+          top="10%"
+          left="15%"
+          width="65%"
+          height="70%"
+      >
+        {props.isTiming ? JSON.stringify(props) : props.currentTime}
+      </bigtext>
+  );
+};
+
+
+/**
+ * TimeList Component
+ */
+const TimeList = (props) => {
+  return (
+      <list label={"Times"}
         class={stylesheet.bordered}
-        top="30%"
-        left="center"
-        width="50%"
-        height="35%" >
+        top="10%"
+        width="15%"
+        items={props.times}
+      />
+  );
+};
 
-      {props.isTiming ? JSON.stringify(props) : props.currentTime}
 
-    </box>
+/**
+ * Scramble Component
+ */
+const Scramble = (props) => {
+  return (
+      <box label={"Times"}
+          class={stylesheet.bordered}
+          height="10%" 
+      >
+
+        {"Scramble goes inside here!"}
+
+      </box>
   );
 };
 
