@@ -4,7 +4,8 @@
   "description": "Command-Line Cube Timer",
   "main": "index.js",
   "scripts": {
-    "start": "node index"
+    "start": "node index timer.js",
+    "demo": "node index dashboard.js"
   },
   "repository": {
     "type": "git",
