@@ -35,7 +35,6 @@ class Dashboard extends Component {
     this.timer = 0;
 
     this.handleSpacebar = this.handleSpacebar.bind(this);
-    this.props.addKeypressListener('space', this.handleSpacebar);
     this.tick = this.tick.bind(this);
   }
 
@@ -67,6 +66,7 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
+    this.props.addKeypressListener('space', this.handleSpacebar);
   }
 
   render() {
