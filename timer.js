@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import blessed from 'neo-blessed'
 import { createBlessedRenderer } from 'react-blessed'
+import Cube from 'cubejs'
 const render = createBlessedRenderer(blessed);
 
 /**
@@ -27,6 +28,7 @@ class Dashboard extends Component {
     super(props);
 
     this.state = {
+      scramble: "",
       foo: "Testing",
       times: [],
       isTiming: false,
@@ -35,6 +37,7 @@ class Dashboard extends Component {
     }
     this.timer = 0;
 
+    this.generateScramble = this.generateScramble.bind(this);
     this.handleSpacebar = this.handleSpacebar.bind(this);
     this.tick = this.tick.bind(this);
   }
@@ -42,6 +45,15 @@ class Dashboard extends Component {
   tick() {
     let totalElapsedSeconds = ((new Date().getTime() - this.state.currentTime) / 1000).toFixed(2);
     this.setState({totalElapsedSeconds})
+  }
+
+  generateScramble() {
+    let ret = '';
+    let c, b, j, m;
+    const r=Math.random;
+    for(c=b=j=25; j; c+b-5|c-m&&b-m?ret+=("URFBLD"[j--,c=b,b=m]+" 2'"[0|r()*3]+" "):0)
+      m=0 | r()*6
+    return ret
   }
 
   handleSpacebar() {
@@ -60,7 +72,10 @@ class Dashboard extends Component {
     }
     // Beginning timer
     else {
-      this.setState({ currentTime: new Date().getTime() })
+      this.setState({ 
+        currentTime: new Date().getTime(),
+        scramble: this.generateScramble()
+      })
       this.timer = setInterval(this.tick.bind(this), 10);
     }
     this.setState(prevState => ({ isTiming: !prevState.isTiming }))
@@ -68,6 +83,7 @@ class Dashboard extends Component {
 
   componentDidMount() {
     this.props.addKeypressListener('space', this.handleSpacebar);
+    // Cube.scramble(alg => this.setState({ scramble: alg }));
   }
 
   render() {
@@ -81,7 +97,9 @@ class Dashboard extends Component {
         <TimeList
           times={this.state.times}
         />
-        <Scramble/>
+        <Scramble
+          scramble={this.state.scramble}
+        />
       </element>
     );
   }
@@ -130,7 +148,7 @@ const Scramble = (props) => {
           height="10%" 
       >
 
-        {"Scramble goes inside here!"}
+        {props.scramble}
 
       </box>
   );
