@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
-import blessed from 'blessed'
-import { render } from 'react-blessed'
+import blessed from 'neo-blessed'
+import { createBlessedRenderer } from 'react-blessed'
+const render = createBlessedRenderer(blessed);
 
 /**
  * Stylesheet
