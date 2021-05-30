@@ -29,6 +29,6 @@
     "react": "^16.13.1",
     "react-blessed": "0.6.1",
     "react-devtools-core": "^3.0.0",
-    "ws": "^6.0.0"
+    "ws": "^7.4.6"
   }
 }
